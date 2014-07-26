@@ -68,23 +68,6 @@ section.active {
       <h3>Foi Aqui</h3>
       <p>Bem aqui. <br /><IMG SRC="http://i62.tinypic.com/2coiuc9.jpg" ALT=Para Santo Amaro WIDTH= HEIGHT= ></img></p>
     </section>
-    <section id='gloucester'>
-      <h3>Gloucester Road</h3>
-      <p>Mycroft responds to Sherlock's telegram and mentions several spies. Hugo Oberstein of 13 Caulfield Gardens catches Sherlock's eye. He heads to the nearby Gloucester Road station to investigate and learns that the windows of Caulfield Gardens open over rail tracks where trains stop frequently.</p>
-    </section>
-    <section id='caulfield-gardens'>
-      <h3>13 Caulfield Gardens</h3>
-      <p>Holmes deduces that the murderer placed West atop a stopped train at Caulfield Gardens. The train traveled to Aldgate Station before West's body finally toppled off. Backtracking to the criminal's apartment, Holmes finds a series of classified ads from <em>The Daily Telegraph</em> stashed away. All are under the name Pierrot: "Monday night after nine. Two taps. Only ourselves. Do not be so suspicious. Payment in hard cash when goods delivered."</p>
-    </section>
-    <section id='telegraph'>
-      <h3>The Daily Telegraph</h3>
-      <p>Holmes and Watson head to The Daily Telegraph and place an ad to draw out the criminal. It reads: "To-night. Same hour. Same place. Two taps. Most vitally important. Your own safety at stake. Pierrot." The trap works and Holmes catches the criminal: Colonel Valentine Walter, the brother of Woolwich Arsenal's chief. He confesses to working for Hugo Oberstein to obtain the submarine plans in order to pay off his debts.</p>
-    </section>
-    <section id='charing-cross'>
-      <h3>Charing Cross Hotel</h3>
-      <p>Walter writes to Oberstein and convinces him to meet in the smoking room of the Charing Cross Hotel where he promises additional plans for the submarine in exchange for money. The plan works and Holmes and Watson catch both criminals.</p>
-      <small class='colophon'>
-        Adapted from <a href='http://www.gutenberg.org/files/2346/2346-h/2346-h.htm'>Project Gutenberg</a>
       </small>
     </section>
   </div>
@@ -106,14 +89,6 @@ var places = { type: 'FeatureCollection', features: [
   properties: { id: "london-bridge", zoom: 17 }, type: 'Feature' },
 { geometry: { type: "Point", coordinates: [-46.63420557975769, -23.548802241164687] },
   properties: { id: "woolwich", zoom: 17 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-0.18335806, 51.49439521] },
-  properties: { id: "gloucester", zoom: 17 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-0.19684993, 51.5033856] },
-  properties: { id: "caulfield-gardens", zoom: 17 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-0.10669358, 51.51433123] },
-  properties: { id: "telegraph", zoom: 17 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-0.12416858, 51.50779757] },
-  properties: { id: "charing-cross", zoom: 17 }, type: 'Feature' }
 ]};
 
 var map = L.mapbox.map('map', 'gcaldas.iplc63ho', {
