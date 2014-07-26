@@ -30,7 +30,7 @@ article {
   }
 .sections {
   background:rgba(255,255,255,0.5);
-  width:480px;
+  width:240px;
   }
 section {
   padding:20px;
@@ -48,13 +48,13 @@ section.active {
 <article id='narrative'>
   <div class='sections prose'>
     <section id='cover' class='cover active'>
-      <h2>Cidade das Águas</h2>
-      <p>Trajeto</p>
+      <h2>The Adventure of the Bruce-Partington Plans</h2>
+      <p>by Sir Arthur Conan Doyle</p>
       <small class='scroll quiet'>Scroll &#x25BE;</small>
     </section>
     <section id='baker'>
-      <h3>Partida</h3>
-      <p>Os sinos da Sé anunciam o encontro. <br /><IMG SRC="http://i60.tinypic.com/29c27eu.jpg" ALT=Os sinos WIDTH= HEIGHT= ></img></p>
+      <h3>221b Baker St.</h3>
+      <p>November 1895. London is shrouded in fog and Sherlock Holmes and Watson pass time restlessly awaiting a new case. "The London criminal is certainly a dull fellow," Sherlock bemoans. "There have been numerous petty thefts," Watson offers in response. Just then a telegram arrives from Sherlock's brother Mycroft with a mysterious case.</p>
     </section>
     <section id='aldgate'>
       <h3>Aldgate Station</h3>
@@ -96,10 +96,10 @@ section.active {
 // the HTML above - that's how we figure out how to link up the
 // map and the data.
 var places = { type: 'FeatureCollection', features: [
-{ geometry: { type: "Point", coordinates: [-46.637, -23.549] },
-  properties: { id: "cover", marker-opacity: 0, zoom: 17 }, type: 'Feature' },
 { geometry: { type: "Point", coordinates: [-46.63394808769226, -23.550356215652887] },
-  properties: { id: "baker", zoom: 17 } }, type: 'Feature' },
+  properties: { id: "cover", zoom: 17 }, marker-opacity: 0, type: 'Feature' },
+{ geometry: { type: "Point", coordinates: [-0.15591514, 51.51830379] },
+  properties: { id: "baker" }, type: 'Feature' },
 { geometry: { type: "Point", coordinates: [-0.07571203, 51.51424049] },
   properties: { id: "aldgate" }, type: 'Feature' },
 { geometry: { type: "Point", coordinates: [-0.08533793, 51.50438536] },
@@ -116,7 +116,7 @@ var places = { type: 'FeatureCollection', features: [
   properties: { id: "charing-cross" }, type: 'Feature' }
 ]};
 
-var map = L.mapbox.map('map', 'gcaldas.iplc63ho', {
+var map = L.mapbox.map('map', 'examples.map-i86nkdio', {
     zoomControl: false
 });
 
@@ -138,7 +138,7 @@ function setId(newId) {
     // marker to a different color and zooming to it.
     placesLayer.eachLayer(function(layer) {
         if (layer.feature.properties.id === newId) {
-            map.setView(layer.getLatLng(), layer.feature.properties.zoom || 17);
+            map.setView(layer.getLatLng(), layer.feature.properties.zoom || 14);
             layer.setIcon(L.mapbox.marker.icon({
                 'marker-color': '#a8f'
             }));
