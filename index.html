@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<title>Cidade das Águas - Trajeto</title>
+<title>Scroll-driven navigation with markers and a narrative</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
@@ -57,16 +57,16 @@ section.active {
       <p>Os sinos da Sé anunciam o encontro. <br /><IMG SRC="http://i60.tinypic.com/29c27eu.jpg" ALT=Os sinos WIDTH= HEIGHT= ></img></p>
     </section>
     <section id='aldgate'>
-      <h3>Vai Sair!</h3>
-      <p>Vai sair! <br /><IMG SRC="http://i61.tinypic.com/4q1mv7.jpg" ALT=Para Santo Amaro WIDTH= HEIGHT= ></img></p>
+      <h3>Aldgate Station</h3>
+      <p>Arthur Cadogan West was found dead, head crushed in on train tracks at Aldgate Station at 6AM Tuesday morning. West worked at Woolwich Arsenal on the Bruce-Partington submarine, a secret military project. Plans for the submarine had been stolen and seven of the ten missing papers were found in West's possession. Mycroft implores Sherlock to take the case and recover the three missing papers.</p>
     </section>
     <section id='london-bridge'>
-      <h3>Quase uma Europa!</h3>
-      <p>Tanta gente, tanto comércio… <br /><IMG SRC="http://i61.tinypic.com/syxyq9.jpg" ALT=Para Santo Amaro WIDTH= HEIGHT= ></img></p>
+      <h3>London Bridge</h3>
+      <p>Holmes and Watson's investigations take them across London. Sherlock deduces that West was murdered elsewhere, then moved to Aldgate Station to create the illusion that he was crushed on the tracks by a train. On their way to Woolwich Sherlock dispatches a telegram to Mycroft at London Bridge: "Send list of all foreign spies known to be in England, with full address."</p>
     </section>
     <section id='woolwich'>
-      <h3>Foi Aqui</h3>
-      <p>Bem aqui. <br /><IMG SRC="http://i62.tinypic.com/2coiuc9.jpg" ALT=Para Santo Amaro WIDTH= HEIGHT= ></img></p>
+      <h3>Woolwich Arsenal</h3>
+      <p>While investigating at Woolwich Arsenal Sherlock learns that West did not have the three keys&mdash;door, office, and safe&mdash;necessary to steal the papers. The train station clerk mentions seeing an agitated West boarding the 8:15 train to London Bridge. Sherlock suspects West of following someone who had access to the Woolwich chief's keyring with all three keys.</p>
     </section>
     <section id='gloucester'>
       <h3>Gloucester Road</h3>
@@ -96,16 +96,16 @@ section.active {
 // the HTML above - that's how we figure out how to link up the
 // map and the data.
 var places = { type: 'FeatureCollection', features: [
-{ geometry: { type: "Point", coordinates: [-46.638, -23.549] },
-  properties: { id: "cover", zoom: 17 }, type: 'Feature' },
+{ geometry: { type: "Point", coordinates: [-46.637, -23.549] },
+  properties: { id: "cover", marker-opacity: 0, zoom: 17 }, type: 'Feature' },
 { geometry: { type: "Point", coordinates: [-46.63394808769226, -23.550356215652887] },
-  properties: { id: "baker", zoom: 17}, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-46.633583307266235, -23.549726759845743] },
-  properties: { id: "aldgate", zoom: 17 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-46.63369059562683, -23.54911697165839] },
-  properties: { id: "london-bridge", zoom: 17 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-46.63420557975769, -23.548802241164687] },
-  properties: { id: "woolwich", zoom: 17 }, type: 'Feature' },
+  properties: { id: "baker", zoom: 17 } }, type: 'Feature' },
+{ geometry: { type: "Point", coordinates: [-0.07571203, 51.51424049] },
+  properties: { id: "aldgate" }, type: 'Feature' },
+{ geometry: { type: "Point", coordinates: [-0.08533793, 51.50438536] },
+  properties: { id: "london-bridge" }, type: 'Feature' },
+{ geometry: { type: "Point", coordinates: [0.05991101, 51.48752939] },
+  properties: { id: "woolwich" }, type: 'Feature' },
 { geometry: { type: "Point", coordinates: [-0.18335806, 51.49439521] },
   properties: { id: "gloucester" }, type: 'Feature' },
 { geometry: { type: "Point", coordinates: [-0.19684993, 51.5033856] },
@@ -138,7 +138,7 @@ function setId(newId) {
     // marker to a different color and zooming to it.
     placesLayer.eachLayer(function(layer) {
         if (layer.feature.properties.id === newId) {
-            map.setView(layer.getLatLng(), layer.feature.properties.zoom || 14);
+            map.setView(layer.getLatLng(), layer.feature.properties.zoom || 17);
             layer.setIcon(L.mapbox.marker.icon({
                 'marker-color': '#a8f'
             }));
