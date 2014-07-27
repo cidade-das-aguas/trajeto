@@ -167,7 +167,7 @@ body.section-0 #map { opacity:0.5; }
 <script>
 var geojson = [
   { "geometry": { "type": "Point", "coordinates": [-46.63394808769226, -23.550356215652887] },
-    "properties": { "id": "cover", "zoom": 13 } },
+    "properties": { "id": "cover", "zoom": 17 } },
   { "geometry": { "type": "Point", "coordinates": [-46.63394808769226, -23.550356215652887] },
     "properties": { "id": "baker" } },
   { "geometry": { "type": "Point", "coordinates": [-46.633583307266235, -23.549726759845743] },
@@ -226,9 +226,9 @@ var setActive = function(index, ease) {
 
   // Ease map to active marker.
   if (!ease) {
-    map.centerzoom(markers[index].location, markers[index].data.properties.zoom||14);
+    map.centerzoom(markers[index].location, markers[index].data.properties.zoom||18);
   } else {
-    map.ease.location(markers[index].location).zoom(markers[index].data.properties.zoom||14).optimal(0.5, 1.00);
+    map.ease.location(markers[index].location).zoom(markers[index].data.properties.zoom||18).optimal(0.5, 1.00);
   }
 
   return true;
