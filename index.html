@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<title>Scroll-driven navigation with markers and a narrative</title>
+<title>Cidade das Águas - Trajeto</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
@@ -96,13 +96,13 @@ section.active {
 // the HTML above - that's how we figure out how to link up the
 // map and the data.
 var places = { type: 'FeatureCollection', features: [
-{ geometry: { type: "Point", coordinates: [-0.12960000, 51.50110000] },
-  properties: { id: "cover", zoom: 9 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-0.15591514, 51.51830379] },
+{ geometry: { type: "Point", coordinates: [-46.63394808769226, -23.550356215652887] },
+  properties: { id: "cover", zoom: 17 }, type: 'Feature' },
+{ geometry: { type: "Point", coordinates: [-46.633583307266235, -23.549726759845743] },
   properties: { id: "baker" }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-0.07571203, 51.51424049] },
+{ geometry: { type: "Point", coordinates: [-46.63369059562683, -23.54911697165839] },
   properties: { id: "aldgate" }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-0.08533793, 51.50438536] },
+{ geometry: { type: "Point", coordinates: [-46.63420557975769, -23.548802241164687] },
   properties: { id: "london-bridge" }, type: 'Feature' },
 { geometry: { type: "Point", coordinates: [0.05991101, 51.48752939] },
   properties: { id: "woolwich" }, type: 'Feature' },
@@ -116,7 +116,7 @@ var places = { type: 'FeatureCollection', features: [
   properties: { id: "charing-cross" }, type: 'Feature' }
 ]};
 
-var map = L.mapbox.map('map', 'examples.map-i86nkdio', {
+var map = L.mapbox.map('map', 'gcaldas.iplc63ho', {
     zoomControl: false
 });
 
@@ -138,7 +138,7 @@ function setId(newId) {
     // marker to a different color and zooming to it.
     placesLayer.eachLayer(function(layer) {
         if (layer.feature.properties.id === newId) {
-            map.setView(layer.getLatLng(), layer.feature.properties.zoom || 14);
+            map.setView(layer.getLatLng(), layer.feature.properties.zoom || 18);
             layer.setIcon(L.mapbox.marker.icon({
                 'marker-color': '#a8f'
             }));
