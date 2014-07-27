@@ -13,142 +13,80 @@
 </head>
 <body>
 <style>
-article {
+.info {
   position:absolute;
-  top:0;
-  right:0;
-  bottom:0px;
-  left:0;
-  overflow:auto;
+  top:10px;
+  left:10px;
   }
-.quiet {
-  color:rgba(0,0,0,0.5);
-  }
-.scroll {
-  display:block;
-  text-align:center;
-  }
-.sections {
-  background:rgba(255,255,255,0.5);
-  width:400px;
-  }
-section {
-  padding:20px;
-  color:rgba(0,0,0,0.5);
-  -webkit-transition:background 500ms, color 500ms;
-          transition:background 500ms, color 500ms;
-  }
-section.active {
-  background:#fff;
-  color:#404040;
-  }
+  .info div {
+    background:#fff;
+    padding:10px;
+    border-radius:3px;
+    }
 </style>
-<div id='map'></div>
 
-<article id='narrative'>
-  <div class='sections prose'>
-    <section id='cover' class='cover active'>
-      <h2>Cidade das Águas</h2>
-      <p>Trajeto</p>
-      <small class='scroll quiet'>Scroll &#x25BE;</small>
-    </section>
-    <section id='baker'>
-      <h3>Partida</h3>
-      <p>Os sinos da Sé anunciam o encontro. <br /><IMG SRC="http://i60.tinypic.com/29c27eu.jpg" ALT=Os sinos WIDTH= HEIGHT= ></img></p>
-    </section>
-    <section id='aldgate'>
-      <h3>Vai Sair!</h3>
-      <p>Vai sair! <br /><IMG SRC="http://i61.tinypic.com/4q1mv7.jpg" ALT=Para Santo Amaro WIDTH= HEIGHT= ></img></p>
-    </section>
-    <section id='london-bridge'>
-      <h3>Quase uma Europa!</h3>
-      <p>Tanta gente, tanto comércio… <br /><IMG SRC="http://i61.tinypic.com/syxyq9.jpg" ALT=Para Santo Amaro WIDTH= HEIGHT= ></img></p>
-    </section>
-    <section id='woolwich'>
-      <h3>Foi Aqui</h3>
-      <p>Bem aqui. <br /><IMG SRC="http://i62.tinypic.com/2coiuc9.jpg" ALT=Para Santo Amaro WIDTH= HEIGHT= ></img></p>
-    </section>
-      </small>
-    </section>
-  </div>
-</article>
+<div id='map'></div>
+<div id='info' class='info'></div>
 
 <script>
-// In this case, we just hardcode data into the file. This could be dynamic.
-// The important part about this data is that the 'id' property matches
-// the HTML above - that's how we figure out how to link up the
-// map and the data.
-var places = { type: 'FeatureCollection', features: [
-{ geometry: { type: "Point", coordinates: [-46.638, -23.549] },
-  properties: { id: "cover", zoom: 17 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-46.63394808769226, -23.550356215652887] },
-  properties: { id: "baker", zoom: 17 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-46.633583307266235, -23.549726759845743] },
-  properties: { id: "aldgate", zoom: 17 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-46.63369059562683, -23.54911697165839] },
-  properties: { id: "london-bridge", zoom: 17 }, type: 'Feature' },
-{ geometry: { type: "Point", coordinates: [-46.63420557975769, -23.548802241164687] },
-  properties: { id: "woolwich", zoom: 17 }, type: 'Feature' },
-]};
+var info = document.getElementById('info');
+var map = L.mapbox.map('map', 'gcaldas.iplc63ho')
+    .setView([37.9, -77], 6);
 
-var map = L.mapbox.map('map', 'gcaldas.iplc63ho', {
-    zoomControl: false
+var myLayer = L.mapbox.featureLayer().addTo(map);
+
+var geoJson = [
+    {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [-77, 37.9]
+        },
+        properties: {
+            title: 'Marker one',
+            description: '<em>Wow</em>, this tooltip is breaking all the rules.',
+            'marker-color': '#548cba'
+        }
+    },
+    {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [-78, 36.5]
+        },
+        properties: {
+            title: 'Marker two',
+            description: 'Another marker, including <a href="http://mapbox.com">a link</a>.',
+            'marker-color': '#548cba'
+        }
+    }
+];
+
+myLayer.setGeoJSON(geoJson);
+
+// Listen for individual marker clicks.
+myLayer.on('click',function(e) {
+    // Force the popup closed.
+    e.layer.closePopup();
+
+    var feature = e.layer.feature;
+    var content = '<div><strong>' + feature.properties.title + '</strong>' +
+                  '<p>' + feature.properties.description + '</p></div>';
+
+    info.innerHTML = content;
 });
 
-var placesLayer = L.mapbox.featureLayer(places)
-    .addTo(map);
+// Clear the tooltip when map is clicked.
+map.on('move', empty);
 
-// Ahead of time, select the elements we'll need -
-// the narrative container and the individual sections
-var narrative = document.getElementById('narrative'),
-    sections = narrative.getElementsByTagName('section'),
-    currentId = '';
+// Trigger empty contents when the script
+// has loaded on the page.
+empty();
 
-setId('cover');
+function empty() {
+  info.innerHTML = '<div><strong>Click a marker</strong></div>';
+  }
 
-function setId(newId) {
-    // If the ID hasn't actually changed, don't do anything
-    if (newId === currentId) return;
-    // Otherwise, iterate through layers, setting the current
-    // marker to a different color and zooming to it.
-    placesLayer.eachLayer(function(layer) {
-        if (layer.feature.properties.id === newId) {
-            map.setView(layer.getLatLng(), layer.feature.properties.zoom || 14);
-            layer.setIcon(L.mapbox.marker.icon({
-                'marker-color': '#a8f'
-            }));
-        } else {
-            layer.setIcon(L.mapbox.marker.icon({
-                'marker-color': '#404040'
-            }));
-        }
-    });
-    // highlight the current section
-    for (var i = 0; i < sections.length; i++) {
-        sections[i].className = sections[i].id === newId ? 'active' : '';
-    }
-    // And then set the new id as the current one,
-    // so that we know to do nothing at the beginning
-    // of this function if it hasn't changed between calls
-    currentId = newId;
-}
-
-// If you were to do this for real, you would want to use
-// something like underscore's _.debounce function to prevent this
-// call from firing constantly.
-narrative.onscroll = function(e) {
-    var narrativeHeight = narrative.offsetHeight;
-    var newId = currentId;
-    // Find the section that's currently scrolled-to.
-    // We iterate backwards here so that we find the topmost one.
-    for (var i = sections.length - 1; i >= 0; i--) {
-        var rect = sections[i].getBoundingClientRect();
-        if (rect.top >= 0 && rect.top <= narrativeHeight) {
-            newId = sections[i].id;
-        }
-    };
-    setId(newId);
-};
 </script>
 </body>
 </html>
